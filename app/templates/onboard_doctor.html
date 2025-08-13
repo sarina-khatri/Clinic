@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head><title>Onboard Doctor</title></head>
+<body>
+  <h2>Onboard Doctor</h2>
+
+  <!-- Flash messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul>
+      {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <form method="POST" action="{{ url_for('admin.onboarding_doctor') }}">
+    <label>Username: <input name="username" required></label><br>
+    <label>Email: <input type="email" name="email" required></label><br>
+    <label>Password: <input type="password" name="password" required></label><br>
+    <button type="submit">Add Doctor</button>
+  </form>
+
+  <p><a href="{{ url_for('auth.dashboard') }}">Back to Dashboard</a></p>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head><title>Assign Doctor</title></head>
+<body>
+  <h2>Assign Doctor to Department</h2>
+
+  <!-- Flash messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul>
+      {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <form method="POST" action="{{ url_for('admin.assign_doctor') }}">
+    <label>Doctor:
+      <select name="doctor_id" required>
+        <option value="">-- Select Doctor --</option>
+        {% for doctor in doctors %}
+          <option value="{{ doctor.id }}">{{ doctor.username }} ({{ doctor.email }})</option>
+        {% endfor %}
+      </select>
+    </label><br>
+
+    <label>Department:
+      <select name="department_id" required>
+        <option value="">-- Select Department --</option>
+        {% for dept in departments %}
+          <option value="{{ dept.id }}">{{ dept.name }}</option>
+        {% endfor %}
+      </select>
+    </label><br>
+
+    <button type="submit">Assign</button>
+  </form>
+
+  <p><a href="{{ url_for('auth.dashboard') }}">Back to Dashboard</a></p>
+</body>
+</html>

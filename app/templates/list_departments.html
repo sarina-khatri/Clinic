@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head><title>List Departments</title></head>
+<body>
+  <h2>Departments</h2>
+
+  <!-- Flash messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul>
+      {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <ul>
+    {% for dept in departments %}
+      <li>{{ dept.name }} (ID: {{ dept.id }})</li>
+    {% else %}
+      <li>No departments found.</li>
+    {% endfor %}
+  </ul>
+  <p><a href="{{ url_for('auth.dashboard') }}">Back to Dashboard</a></p>
+</body>
+</html>

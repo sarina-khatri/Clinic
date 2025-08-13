@@ -1,0 +1,33 @@
+<!-- app/templates/dashboard.html -->
+<h1>Dashboard</h1>
+<p>Welcome, {{ username }}!</p>
+
+<!-- Flash messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+{% if role == "admin" %}
+  <h2>Admin Panel</h2>
+  <ul>
+    <li><a href="{{ url_for('admin.create_department_form') }}">Create Department</a></li>
+    <li><a href="{{ url_for('admin.list_departments') }}">List Departments</a></li>
+    <li><a href="{{ url_for('admin.onboard_doctor_form') }}">Onboard Doctor</a></li>
+    <li><a href="{{ url_for('admin.assign_doctor_form') }}">Assign Doctor to Department</a></li>
+  </ul>
+{% elif role == "doctor" %}
+  <h2>Doctor Panel</h2>
+  <p>Your assigned departments will appear here.</p>
+{% elif role == "member" %}
+  <h2>Member Panel</h2>
+  <p>Browse doctors and book appointments here.</p>
+{% else %}
+  <p>Role not recognized.</p>
+{% endif %}
+<a href="{{ url_for('auth.logout') }}">Logout</a>
