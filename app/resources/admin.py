@@ -6,15 +6,6 @@ from ..services import AdminService
 
 admin_bp = Blueprint("admin", __name__)
 
-
-#TODO
-#add resources
-#pyproject.toml
-#push code to repo
-#dto
-#docker
-#no more models, dont add? what is model
-
 #create dept.
 @admin_bp.route("/departments", methods=["POST"])
 @jwt_or_session_role_required(["admin"])
